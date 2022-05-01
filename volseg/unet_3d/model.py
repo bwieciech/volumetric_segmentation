@@ -18,7 +18,9 @@ class UNet3d(PlottableModel):
         conv3d_transpose_paddings = calculate_required_paddings(
             *self.image_dimensions.get_dhw(), num_levels=4
         )
-        self.layers = UNet3dParts.build_layers(self.image_dimensions.channels, num_classes, conv3d_transpose_paddings)
+        self.layers = UNet3dParts.build_layers(
+            self.image_dimensions.channels, num_classes, conv3d_transpose_paddings
+        )
 
     def forward(self, x):
         encoder_outputs = self.__encode(x)
@@ -55,7 +57,7 @@ class UNet3d(PlottableModel):
         return outputs
 
     def __decode_single(
-            self, encoder_level_n_output, decoder_level_n_minus_one_upsampled, level
+        self, encoder_level_n_output, decoder_level_n_minus_one_upsampled, level
     ):
         decoder_level_n_input = torch.concat(
             (encoder_level_n_output, decoder_level_n_minus_one_upsampled), axis=1

@@ -6,7 +6,6 @@ from volseg.utils.io_utils import print_info_message
 
 
 class PlottableModel(torch.nn.Module):
-
     def __init__(self, image_dimensions):
         super().__init__()
         self.image_dimensions = ImageDimensionsWrapper(dims=image_dimensions)

@@ -2,7 +2,6 @@ import torch
 
 
 class UNet3dParts:
-
     @staticmethod
     def build_layers(input_channels, num_classes, conv3d_transpose_paddings):
         return torch.nn.ModuleDict(
@@ -43,8 +42,9 @@ class UNet3dParts:
         layers = {}
         for level in range(1, 4):
             layers[f"decoder_level_{level}"] = UNet3dParts.__build_conv_block(
-                in_channels=int(1.5 * 128 * 2 ** (level - 1)), intermediate_out_channels=64 * 2 ** (level - 1),
-                out_channels=64 * 2 ** (level - 1)
+                in_channels=int(1.5 * 128 * 2 ** (level - 1)),
+                intermediate_out_channels=64 * 2 ** (level - 1),
+                out_channels=64 * 2 ** (level - 1),
             )
         return layers
 
