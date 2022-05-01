@@ -16,7 +16,9 @@ class VNet(PlottableModel):
         conv3d_transpose_paddings = calculate_required_paddings(
             *self.image_dimensions.get_dhw(), num_levels=5
         )
-        self.layers = VNetParts.build_layers(self.image_dimensions.channels, num_classes, conv3d_transpose_paddings)
+        self.layers = VNetParts.build_layers(
+            self.image_dimensions.channels, num_classes, conv3d_transpose_paddings
+        )
 
     def forward(self, x):
         encoder_level_outputs, bottom_level_input = self.__encode(x)
@@ -49,6 +51,8 @@ class VNet(PlottableModel):
             block_output = self.layers[f"decoder_level_{level}"](block_input)
             block_output_residual = upsampled + block_output
             if level > 1:
-                upsampled = self.layers[f"upsampling_level_{level}"](block_output_residual)
+                upsampled = self.layers[f"upsampling_level_{level}"](
+                    block_output_residual
+                )
         # noinspection PyUnboundLocalVariable
         return block_output

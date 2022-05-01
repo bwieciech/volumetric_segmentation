@@ -2,7 +2,6 @@ import torch
 
 
 class VNetParts:
-
     @staticmethod
     def build_layers(input_channels, num_classes, conv3d_transpose_paddings):
         return torch.nn.ModuleDict(
@@ -32,7 +31,9 @@ class VNetParts:
     def __create_downsampling_layers():
         layers = {}
         for level in range(1, 5):
-            layers[f"downsampling_level_{level}"] = VNetParts.__build_downsampling_layer(
+            layers[
+                f"downsampling_level_{level}"
+            ] = VNetParts.__build_downsampling_layer(
                 in_channels=16 * 2 ** (level - 1), out_channels=32 * 2 ** (level - 1)
             )
         return layers
@@ -42,21 +43,25 @@ class VNetParts:
         layers = {}
         for level in range(1, 5):
             layers[f"decoder_level_{level}"] = VNetParts.__build_conv_block(
-                convolutions_count=min(level, 3), in_channels=int(1.5 * 32 * 2 ** (level - 1)),
-                channels=32 * 2 ** (level - 1)
+                convolutions_count=min(level, 3),
+                in_channels=int(1.5 * 32 * 2 ** (level - 1)),
+                channels=32 * 2 ** (level - 1),
             )
         return layers
 
     @staticmethod
     def __create_upsampling_layers(conv3d_transpose_paddings):
         layers = {}
-        for layer in range(2, 5):
-            layers[f"upsampling_level_{layer}"] = VNetParts.__build_conv3d_transpose(
-                in_channels=64 * 2 ** (layer - 2), out_channels=32 * 2 ** (layer - 2),
-                output_padding=conv3d_transpose_paddings[layer]
+        for level in range(2, 5):
+            layers[f"upsampling_level_{level}"] = VNetParts.__build_conv3d_transpose(
+                in_channels=64 * 2 ** (level - 2),
+                out_channels=32 * 2 ** (level - 2),
+                output_padding=conv3d_transpose_paddings[level],
             )
         layers["upsampling_bottom_level"] = VNetParts.__build_conv3d_transpose(
-            in_channels=256, out_channels=256, output_padding=conv3d_transpose_paddings[5]
+            in_channels=256,
+            out_channels=256,
+            output_padding=conv3d_transpose_paddings[5],
         )
         return layers
 
@@ -74,7 +79,7 @@ class VNetParts:
                 out_channels=num_classes,
                 kernel_size=1,  # This 1x1x1 convolution adjusts channels to return mask for all output classes
                 stride=1,
-            )
+            ),
         }
 
     @staticmethod
