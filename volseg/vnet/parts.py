@@ -50,10 +50,10 @@ class VNetParts:
     @staticmethod
     def __create_upsampling_layers(conv3d_transpose_paddings):
         layers = {}
-        for layer in range(2, 5):
-            layers[f"upsampling_level_{layer}"] = VNetParts.__build_conv3d_transpose(
-                in_channels=64 * 2 ** (layer - 2), out_channels=32 * 2 ** (layer - 2),
-                output_padding=conv3d_transpose_paddings[layer]
+        for level in range(2, 5):
+            layers[f"upsampling_level_{level}"] = VNetParts.__build_conv3d_transpose(
+                in_channels=64 * 2 ** (level - 2), out_channels=32 * 2 ** (level - 2),
+                output_padding=conv3d_transpose_paddings[level]
             )
         layers["upsampling_bottom_level"] = VNetParts.__build_conv3d_transpose(
             in_channels=256, out_channels=256, output_padding=conv3d_transpose_paddings[5]
