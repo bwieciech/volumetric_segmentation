@@ -14,6 +14,7 @@ class VNetParts:
                 "bottom_level": VNetParts.__build_conv_block(
                     convolutions_count=3, channels=256
                 ),
+                "softmax": torch.nn.Softmax(dim=1)
             }
         )
 

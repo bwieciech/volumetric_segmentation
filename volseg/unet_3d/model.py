@@ -31,7 +31,8 @@ class UNet3d(PlottableModel):
         )
 
         decoder_output = self.__decode(encoder_outputs, not_bottleneck_upsampled)
-        return decoder_output
+        decoder_output_adjusted_channels = self.layers["output_conv"](decoder_output)
+        return self.layers["softmax"](decoder_output_adjusted_channels)
 
     def __decode(self, encoder_outputs, not_bottleneck_upsampled):
         prev_level_upsampled = not_bottleneck_upsampled

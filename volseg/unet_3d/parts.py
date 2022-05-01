@@ -23,6 +23,7 @@ class UNet3dParts:
                     kernel_size=3,
                     padding="same",
                 ),
+                "softmax": torch.nn.Softmax(dim=1),
             }
         )
 
