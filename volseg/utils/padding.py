@@ -1,7 +1,7 @@
 from collections import defaultdict
 
 
-def calculate_required_paddings(im_depth, im_height, im_width):
+def calculate_required_paddings(im_depth, im_height, im_width, num_levels):
     """
     Calculates paddings required in ConvTranspose3d layers. These paddings are needed when stride 2 max pooling is
     applied to a dimension of odd size. The resulting layer is of size floor(dims / 2). Upsampling this layer produces
@@ -11,7 +11,9 @@ def calculate_required_paddings(im_depth, im_height, im_width):
     res = defaultdict(lambda: (0, 0, 0))
 
     depth, height, width = im_depth, im_height, im_width
-    for layer in range(2, 5):  # potential upscaling mismatch occurs in layers 2-4
+    for layer in range(
+        2, num_levels + 1
+    ):  # potential upscaling mismatch occurs in levels 2+
         up_depth, up_height, up_width = (
             2 * (depth // 2),
             2 * (height // 2),

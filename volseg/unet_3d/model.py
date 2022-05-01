@@ -1,9 +1,9 @@
 import torch
 from torchviz import make_dot
 
-from volseg.unet_3d.utils import calculate_required_paddings
 from volseg.utils.image_dimension_wrapper import ImageDimensionsWrapper
 from volseg.utils.io_utils import print_info_message
+from volseg.utils.padding import calculate_required_paddings
 
 
 class UNet3d(torch.nn.Module):
@@ -18,7 +18,7 @@ class UNet3d(torch.nn.Module):
         self.image_dimensions = ImageDimensionsWrapper(dims=image_dimensions)
 
         conv3d_transpose_paddings = calculate_required_paddings(
-            *self.image_dimensions.get_dhw()
+            *self.image_dimensions.get_dhw(), num_levels=4
         )
         self.layers = torch.nn.ModuleDict(
             {
