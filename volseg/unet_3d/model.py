@@ -30,15 +30,14 @@ class UNet3d(PlottableModel):
             not_bottleneck_output
         )
 
-        decoder_level_1_input = self.__decode(encoder_outputs, not_bottleneck_upsampled)
-        decoder_level_1_output = self.layers["decoder_level_1"](decoder_level_1_input)
-        return decoder_level_1_output
+        decoder_output = self.__decode(encoder_outputs, not_bottleneck_upsampled)
+        return decoder_output
 
     def __decode(self, encoder_outputs, not_bottleneck_upsampled):
         prev_level_upsampled = not_bottleneck_upsampled
         for level in range(3, 0, -1):
             decoder_level_output = self.__decode_single(
-                encoder_outputs[level - 1], prev_level_upsampled, level=3
+                encoder_outputs[level - 1], prev_level_upsampled, level
             )
             prev_level_upsampled = decoder_level_output
         # noinspection PyUnboundLocalVariable
