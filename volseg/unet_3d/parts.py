@@ -23,7 +23,9 @@ class UNet3dParts:
                     kernel_size=3,
                     padding="same",
                 ),
-                "softmax": torch.nn.Softmax(dim=1),
+                "output_activation": torch.nn.Softmax(dim=1)
+                if num_classes > 1
+                else torch.nn.Sigmoid(),
             }
         )
 

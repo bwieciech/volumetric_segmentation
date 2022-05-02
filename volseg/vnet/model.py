@@ -26,8 +26,10 @@ class VNet(PlottableModel):
         bottom_level_conv_block_output = self.layers["bottom_level"](bottom_level_input)
         bottom_level_output = bottom_level_conv_block_output + bottom_level_input
         decoder_output = self.__decode(encoder_level_outputs, bottom_level_output)
-        decoder_output_adjusted_channels = self.layers["output_channels_adjust"](decoder_output)
-        return self.layers["softmax"](decoder_output_adjusted_channels)
+        decoder_output_adjusted_channels = self.layers["output_channels_adjust"](
+            decoder_output
+        )
+        return self.layers["output_activation"](decoder_output_adjusted_channels)
 
     def __encode(self, x):
         layer_input = self.layers["input_channels_adjust"](x)
