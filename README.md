@@ -1,6 +1,6 @@
 # Volumetric segmentation
 
-This library implements the 3D U-Net and V-Net (coming soon) models for volumetric segmentation using
+This library implements the 3D U-Net and V-Net models for volumetric segmentation using
 [PyTorch](https://pytorch.org/).
 
 ## Setup
