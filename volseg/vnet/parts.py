@@ -6,7 +6,7 @@ class VNetParts:
     def build_layers(input_channels, num_classes, conv3d_transpose_paddings):
         return torch.nn.ModuleDict(
             {
-                **VNetParts.__create_input_shape_adjusters(input_channels, num_classes),
+                **VNetParts.__create_channels_adjusters(input_channels, num_classes),
                 **VNetParts.__create_encoder_layers(),
                 **VNetParts.__create_decoder_layers(),
                 **VNetParts.__create_downsampling_layers(),
@@ -69,7 +69,7 @@ class VNetParts:
         return layers
 
     @staticmethod
-    def __create_input_shape_adjusters(input_channels, num_classes):
+    def __create_channels_adjusters(input_channels, num_classes):
         return {
             "input_channels_adjust": torch.nn.Conv3d(
                 in_channels=input_channels,
