@@ -17,5 +17,5 @@ if __name__ == "__main__":
         author="Bartosz Wieciech",
         author_email="bartek.wieciech@gmail.com",
         description="PyTorch implementation of VNet and 3D UNet for volumetric segmentation",
-        python_requires=">3.6",
+        python_requires=">=3.7.1",
     )
