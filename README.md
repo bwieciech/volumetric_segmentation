@@ -40,3 +40,27 @@ parameters during backpropagation. Contrary to the 3D U-Net, reducing dimensions
 They have been replaced by 2x2x2 convolutions with a stride of 2.
 
 ![](https://user-images.githubusercontent.com/16364029/165029707-a09c76e0-77fd-4e2e-9a95-49c418922116.png)
+
+## Example usage
+
+See [here](https://github.com/bwieciech/volumetric_segmentation/blob/main/notebooks/example.ipynb) for a Jupyter
+Notebook on how to use these models. Credit to the author(s) of
+[this dataset](https://www.kaggle.com/datasets/mateuszbuda/lgg-mri-segmentation?resource=download),
+which I use in the mentioned tutorial. Also, thanks to
+[lyakaap](https://github.com/lyakaap/pytorch-template/blob/master/src/losses.py) for the insights on dice loss
+implementation in PyTorch.
+
+## Citation
+
+If you find this code useful, please cite the following:
+
+```
+@misc{bwieciech2022VolumetricSegmentation,
+  author = {Wieciech, Bartosz},
+  title = {volumetric_segmentation},
+  year = {2022},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/bwieciech/volumetric_segmentation}},
+}
+```
